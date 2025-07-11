@@ -4,6 +4,8 @@ const productRoute = require('./src/routes/ProductRoute');
 //iniciando o express
 const app = express();
 
+app.use(express.json());
+
 //adicionando as rotas de produto ao express
 app.use(productRoute);
 
