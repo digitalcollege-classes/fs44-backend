@@ -33,7 +33,7 @@ INSERT INTO tb_produto
 VALUES
     ('Vinho Sao Braz', 4, '10.89');
 
-INSERT INTO tb_produto (nome, categoria, valor) 
+INSERT INTO tb_produto (nome, categoria_id, valor) 
 VALUES
 ('Cerveja Nordestina', 1, '4.50'),
 ('Refrigerante Cajuína', 2, '3.20'),

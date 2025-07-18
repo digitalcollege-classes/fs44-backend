@@ -3,7 +3,15 @@ const app = require('express').Router();
 
 //criando a rota de "buscar" (GET) produtos
 app.get('/api/produtos', async (req, res) => {
-    let dados = await database.execute('SELECT * FROM tb_produto');
+    let dados = await database.execute(`
+        SELECT 
+            tb_produto.*,
+            tb_categoria.nome AS categoria
+        FROM 
+            tb_produto INNER JOIN tb_categoria
+            ON tb_produto.categoria_id = tb_categoria.id
+        ORDER BY tb_produto.id;
+    `);
 
     res.status(200);
     res.send(dados);
@@ -36,11 +44,11 @@ app.delete('/api/produtos/:id', async (req, res) => {
 // app.use(express.json());
 // TODO: retornar os dados que foram inseridos no banco
 app.post('/api/produtos', async (req, res) => {
-    let {nome, categoria, valor} = req.body;
+    let {nome, categoria_id, valor} = req.body;
 
     let sql = `
-        INSERT INTO tb_produto (nome, categoria, valor)
-        VALUES('${nome}', '${categoria}', '${valor}')
+        INSERT INTO tb_produto (nome, categoria_id, valor)
+        VALUES('${nome}', '${categoria_id}', '${valor}')
     `;
 
     await database.execute(sql);
